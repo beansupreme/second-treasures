@@ -1,5 +1,5 @@
 import React from "react"
-class GuestBookView extends React.Component {
+class GuestBookList extends React.Component {
   render () {
     return (
       <div>
@@ -13,4 +13,4 @@ class GuestBookView extends React.Component {
   }
 }
 
-export default GuestBookView
+export default GuestBookList
