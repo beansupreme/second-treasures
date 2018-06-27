@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import GuestBookListItem from './GuestBookListItem'
 class GuestBookList extends React.Component {
   constructor(props) {
     super(props);
@@ -17,9 +18,7 @@ class GuestBookList extends React.Component {
 
   render () {
     const bookItems = this.state.books.map((book) => 
-      <li key={book.id}>
-        {book.title} by {book.author}
-      </li>
+      <GuestBookListItem key={book.id} book={book}/>
     );
     return (
       <div>
