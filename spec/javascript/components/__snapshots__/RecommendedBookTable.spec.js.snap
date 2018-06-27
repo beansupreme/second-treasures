@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<RecommendedBookTable /> renders as expected 1`] = `
+<table
+  className="table"
+  id="recommended-book-table"
+>
+  <caption>
+    Recommended Books
+  </caption>
+  <thead>
+    <tr>
+      <th>
+        Title
+      </th>
+      <th>
+        Author
+      </th>
+      <th>
+        Price
+      </th>
+      <th>
+        ISBN
+      </th>
+    </tr>
+  </thead>
+  <tbody />
+</table>
+`;
