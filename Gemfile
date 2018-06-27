@@ -24,6 +24,8 @@ gem 'bootstrap', '~> 4.1.1'
 gem 'webpacker', '~> 3.5'
 gem 'react-rails'
 
+gem 'devise'
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
