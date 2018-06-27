@@ -7,10 +7,6 @@ exports[`<GuestBookList /> renders as expected 1`] = `
   </h3>
   <ul
     id="recommended-book-list"
-  >
-    <li>
-      Placeholder book
-    </li>
-  </ul>
+  />
 </div>
 `;

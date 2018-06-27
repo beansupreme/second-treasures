@@ -24,8 +24,10 @@ describe 'visiting the home page', js: true do
     expect(page).to have_content('Our recommended books:')
 
     within '#recommended-book-list' do
-      expect(page).to have_content('A Man Called Ove ')
+      expect(page).to have_content('A Man Called Ove')
+      expect(page).to have_content('Fredrik Backman')
       expect(page).to have_content('All Quiet on the Western Front')
+      expect(page).to have_content('Erich Maria Remarque')
     end
   end
 end 
