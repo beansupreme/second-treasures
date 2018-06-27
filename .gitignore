@@ -20,7 +20,6 @@
 # Ignore uploaded files in development
 /storage/*
 
-/node_modules
 /yarn-error.log
 
 /public/assets
@@ -30,7 +29,7 @@
 /config/master.key
 /public/packs
 /public/packs-test
-/node_modules
+
 yarn-debug.log*
 .yarn-integrity
 .DS_STORE
