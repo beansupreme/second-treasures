@@ -41,6 +41,8 @@ describe 'managing books', js: true do
 
 
   it 'allows the user to manage books' do
+    # Viewing books
+
     visit '/users/sign_in'
 
     login_user(jill)
@@ -84,5 +86,19 @@ describe 'managing books', js: true do
     new_book = Book.find_by_title('1984')
     expect(new_book).to be_present
 
+    # Deleting a book
+
+    ove_book_id = a_man_called_ove.id
+    ove_row = find(:table_row, {"Title" => "A Man Called Ove"}, {})
+    within(ove_row) do
+      click_on 'Delete'
+    end
+
+    
+    expect(page).to have_content "Book with id #{ove_book_id} was deleted"
+
+    expect(page).not_to have_content('A Man Called Ove')
+
+    expect(Book.find_by_id(ove_book_id)).to be_nil
   end
 end

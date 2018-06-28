@@ -2,6 +2,9 @@ module Api
   module V1
     class BooksController < ApplicationController
       protect_from_forgery with: :null_session
+      before_action :set_book, only: [:update, :destroy]
+      rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
+
       def index
         render json: Book.all
       end
@@ -15,10 +18,23 @@ module Api
         end
       end
 
+      def destroy
+        @book.destroy
+        render json: {}
+      end
+
     private
       
       def book_params
         params.require(:book).permit(:title, :author, :price, :isbn)
+      end
+
+      def set_book
+        @book = Book.find(params[:id])
+      end
+
+      def record_not_found
+        render json: {}, status: :not_found
       end
     end
   end

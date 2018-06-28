@@ -128,7 +128,7 @@ describe('<NewBookForm />', () => {
     
   });
 
-  it('renders errors on the page if the create contact call fails', (done) => {
+  it('renders errors on the page if the create book call fails', (done) => {
     const wrapper = mount(<NewBookForm />);
 
     mock.onPost('/api/v1/books').reply(422, 

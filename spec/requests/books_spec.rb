@@ -88,4 +88,28 @@ describe 'Book Management' do
       expect(JSON.parse(response.body)).to eq(["Title can't be blank"])
     end
   end
+
+  describe 'DELETE /books/id' do
+    let(:brave_new_world) do
+      Book.create!(
+        isbn: '978-0060850524', 
+        title: 'Brave New World',
+        author: 'Aldous Huxley',
+        price: 16.31
+      )
+    end
+
+    it 'destroys the book from record' do
+      delete "/api/v1/books/#{brave_new_world.id}"
+
+      expect(response).to have_http_status(200)
+      expect(Book.find_by_id(brave_new_world.id)).to be_nil
+    end
+
+    it 'returns a 404 if the book does not exist' do
+      delete "/api/v1/books/4444"
+
+      expect(response).to have_http_status(:not_found)
+    end
+  end
 end

@@ -68,6 +68,31 @@ describe('<RecommendedBookTable />', () => {
 
   });
 
+  xit('calls to the books delete endpoint when a row is clicked', (done) => {
+    sinon.spy(axios, 'delete');
+
+    const wrapper = mount(<RecommendedBookTable />);
+
+    setTimeout(() => {
+      let list = wrapper.find('#recommended-book-table');
+      console.log(list.html())
+      let firstDeleteButton = wrapper.find('#delete-book-button-5');
+      console.log(firstDeleteButton)
+      expect(firstDeleteButton).toHaveText('Delete');
+
+      expect(axios.delete.calledOnce).toEqual(true);
+
+      let getData = axios.delete.getCall(0).args;
+      
+      expect(getData[0]).toEqual('/api/v1/books/5');
+
+
+      axios.delete.restore();
+      done()
+    }, 0);
+
+  });
+
   it('renders the books from the get books endpoint on the page', (done) => {
     const wrapper = mount(<RecommendedBookTable />);
 
@@ -83,9 +108,30 @@ describe('<RecommendedBookTable />', () => {
 
       expect(list).toIncludeText('Fifteen Dogs');
       expect(list).toIncludeText('Andre Alexis');
+
+      expect(wrapper.find('#recommended-book-table-errors').first()).toHaveHTML('<div></div>');
       
       done()
     }, 0);
+  });
+
+  it('renders errors on the page if the get books call fails', (done) => {
+    mock.onGet('/api/v1/books').reply(500, 
+      "Beep Boop Server error."
+    );
+
+    const wrapper = mount(<RecommendedBookTable />);
+
+    
+
+    setTimeout(() => {
+      expect(wrapper.find('#recommended-book-table-errors').first()).toIncludeText("Something went wrong... Books are not available at this time.");
+      expect(wrapper.find('#recommended-book-table-message').first()).toHaveHTML('<div></div>');
+      
+      done();
+    }, 0);
+
+    mock.restore();
   });
 
   it('renders a NewBookForm', () => {
