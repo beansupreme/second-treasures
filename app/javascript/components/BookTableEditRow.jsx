@@ -36,7 +36,7 @@ class BookTableEditRow extends React.Component {
         </td>
         <td>
           <input className="form-control" 
-            type="number" name="edit-price"
+            type="number" name="edit-price" min="0" max="20000" step="1"
             defaultValue={book.price}  onChange={this.updateField}
           />
         </td>
