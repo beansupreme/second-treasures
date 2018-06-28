@@ -93,6 +93,33 @@ describe('<RecommendedBookTable />', () => {
       axios.delete.restore();
       done()
     }, 0);
+  });
+
+  xit('calls to the books update endpoint when a save button is clicked', (done) => {
+    sinon.spy(axios, 'put');
+
+    const wrapper = mount(<RecommendedBookTable />);
+
+    setTimeout(() => {
+      expect(wrapper.state('books')).toEqual(booksResponse);
+
+      let list = wrapper.find('#recommended-book-table');
+      expect(list).toIncludeText('Edit');
+      console.log(list.html())
+      let firstEditButton = list.find('.edit-book');
+      expect(firstEditButton.at(0)).toExist();
+      expect(firstEditButton.at(0)).toHaveText('Edit');
+
+      expect(axios.delete.calledOnce).toEqual(true);
+
+      let getData = axios.delete.getCall(0).args;
+      
+      expect(getData[0]).toEqual('/api/v1/books/5');
+
+
+      axios.delete.restore();
+      done()
+    }, 0);
 
   });
 
@@ -126,7 +153,6 @@ describe('<RecommendedBookTable />', () => {
 
     const wrapper = mount(<RecommendedBookTable />);
 
-    
 
     setTimeout(() => {
       expect(wrapper.find('#recommended-book-table-errors').first()).toIncludeText("Something went wrong... Books are not available at this time.");

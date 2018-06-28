@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<RecommendedBookTableRow /> renders as expected 1`] = `
+<tr
+  className="recommended-book-row"
+>
+  <td>
+    Vimy Ridge
+  </td>
+  <td>
+    Alexander McKee
+  </td>
+  <td>
+    $
+    1.50
+  </td>
+  <td>
+    978-330020242
+  </td>
+  <td>
+    War novel
+  </td>
+  <td>
+    <div
+      className="btn-group"
+      role="group"
+    >
+      <button
+        className="btn btn-warning edit-book"
+        onClick={[Function]}
+      >
+        Edit
+      </button>
+      <button
+        className="btn btn-danger delete-book"
+        onClick={[Function]}
+      >
+        Delete
+      </button>
+    </div>
+  </td>
+</tr>
+`;

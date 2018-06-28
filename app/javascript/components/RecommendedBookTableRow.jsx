@@ -1,33 +1,48 @@
 import React from "react";
+import BookTableEditRow from "./BookTableEditRow";
+import BookTableViewRow from "./BookTableViewRow";
+
 class RecommendedBookTableRow extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      editMode: false
+    }
     this.handleDeleteClick = this.handleDeleteClick.bind(this); 
+    this.handleEditClick = this.handleEditClick.bind(this); 
+    this.handleUpdate = this.handleUpdate.bind(this); 
   }
 
   handleDeleteClick() {
     this.props.onBookDelete(this.props.book.id)
   }
+
+  handleEditClick() {
+    this.setState({editMode: true})
+  }
+
+  handleUpdate(book) {
+    this.setState({editMode: false}) 
+    this.props.onBookUpdate(book)
+  }
+
   
   render() {
-    let book = this.props.book;
     return (
-      <tr className="recommended-book-row">
-        <td>{book.title}</td>
-        <td>{book.author}</td>
-        <td>${book.price}</td>
-        <td>{book.isbn}</td>
-        <td>{book.genre}</td>
-        <td>
-          <button className="btn btn-danger delete-book" onClick={this.handleDeleteClick}>Delete</button>
-        </td>
-      </tr>
+      this.state.editMode ?
+      <BookTableEditRow book={this.props.book} onUpdate={this.handleUpdate}
+      onFieldChange={this.props.onFieldChange}
+      /> 
+      :
+      <BookTableViewRow book={this.props.book} 
+      onEditClick={this.handleEditClick} onDeleteClick={this.handleDeleteClick} />
     )
   }  
 }
 
 RecommendedBookTableRow.defaultProps = {
-  onBookDelete: () => {}
+  onBookDelete: () => {},
+  onBookUpdate: () => {}
 }
 
 

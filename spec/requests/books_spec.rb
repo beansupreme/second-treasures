@@ -1,6 +1,16 @@
 require 'rails_helper'
 
 describe 'Book Management' do
+
+  let(:brave_new_world) do
+    Book.create!(
+      isbn: '978-0060850524', 
+      title: 'Brave New World',
+      author: 'Aldous Huxley',
+      genre: 'Fiction',
+      price: 16.31
+    )
+  end
   
   describe 'GET /books' do
     let(:brave_new_world) do
@@ -96,21 +106,61 @@ describe 'Book Management' do
     end
   end
 
-  describe 'DELETE /books/id' do
-    let(:brave_new_world) do
-      Book.create!(
+  describe 'PUT /books/id' do
+    let(:book_data) do
+      {
         isbn: '978-0060850524', 
         title: 'Brave New World',
         author: 'Aldous Huxley',
-        genre: 'Fiction',
-        price: 16.31
-      )
+        genre: 'Dystopian Fiction',
+        price: 20.99
+      }
     end
 
+    it 'returns 200' do
+      put "/api/v1/books/#{brave_new_world.id}", params: { book: book_data}
+      expect(response).to have_http_status(:ok)
+    end
+
+    it 'updates the new book' do
+      expect(brave_new_world.price).to eq(16.31)
+      expect(brave_new_world.genre).to eq('Fiction')
+
+      put "/api/v1/books/#{brave_new_world.id}", params: { book: book_data}
+
+      brave_new_world.reload
+
+      expect(brave_new_world.genre).to eq('Dystopian Fiction')
+      expect(brave_new_world.price).to eq(20.99)
+    end
+
+    it 'returns an error with incomplete data' do
+      incomplete_data = {
+        isbn: '978-0060850524', 
+        title: '',
+        author: 'Aldous Huxley',
+        genre: 'Dystopian Fiction',
+        price: 20.99
+      }
+      put "/api/v1/books/#{brave_new_world.id}", params: { book: incomplete_data}
+
+      expect(response).to have_http_status(422)
+      expect(JSON.parse(response.body)).to eq(["Title can't be blank"])
+    end
+
+
+    it 'returns a 404 if the book does not exist' do
+      put "/api/v1/books/444", params: { book: book_data}
+
+      expect(response).to have_http_status(:not_found)
+    end
+  end  
+
+  describe 'DELETE /books/id' do
     it 'destroys the book from record' do
       delete "/api/v1/books/#{brave_new_world.id}"
 
-      expect(response).to have_http_status(200)
+      expect(response).to have_http_status(:ok)
       expect(Book.find_by_id(brave_new_world.id)).to be_nil
     end
 

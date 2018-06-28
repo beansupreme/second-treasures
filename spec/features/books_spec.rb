@@ -109,5 +109,35 @@ describe 'managing books', js: true do
     expect(page).not_to have_content('A Man Called Ove')
 
     expect(Book.find_by_id(ove_book_id)).to be_nil
+
+    # editing a book
+    western_front_row = find(:table_row, {"Title" => 'All Quiet on the Western Front'}, {})
+    within(western_front_row) do
+      click_on 'Edit'      
+    end
+
+    
+    within('.recommended-book-edit-row') do
+      fill_in name: 'edit-title', with: ''
+      fill_in name: 'edit-price', with: 12.11
+
+      click_on 'Save'
+    end
+    
+    sleep 5
+    expect(page).to have_content 'Title can\'t be blank'
+    within('.recommended-book-edit-row') do
+      fill_in 'Title', with: 'All Quiet on the Western Front'
+      click_on 'Save'
+    end
+
+    expect(page).to have_content('Book with id #{all_quiet_on_the_western_front.id} successfully updated')
+
+    expect(contacts_table).to have_table_row(
+      'Title' => 'All Quiet on the Western Front', 'Author' => 'Erich Maria Remarque',
+      'Price' => '$12.11', 'ISBN' => '978-0449213940',
+      'Genre' => 'War novel'
+    )
+    expect(all_quiet_on_the_western_front.reload.price).to eq(12.11)
   end
 end

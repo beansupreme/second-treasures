@@ -18,9 +18,17 @@ module Api
         end
       end
 
+      def update
+        if @book.update(book_params)
+          render json: @book, status: :ok
+        else
+          render json: @book.errors.full_messages, status: :unprocessable_entity
+        end
+      end
+
       def destroy
         @book.destroy
-        render json: {}
+        render json: {}, status: :ok
       end
 
     private

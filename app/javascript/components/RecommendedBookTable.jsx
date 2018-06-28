@@ -16,6 +16,8 @@ class RecommendedBookTable extends React.Component {
 
     this.handleNewBookAdd = this.handleNewBookAdd.bind(this); 
     this.handleBookDelete = this.handleBookDelete.bind(this); 
+    this.handleBookUpdate = this.handleBookUpdate.bind(this); 
+    this.updateBook = this.updateBook.bind(this); 
   }
 
   componentDidMount() {
@@ -33,6 +35,32 @@ class RecommendedBookTable extends React.Component {
     this.setState({
       books: this.state.books.concat([book])
     });
+  }
+
+  handleBookUpdate(book) {
+    console.log('book update!')
+    console.log(book)
+    axios.put(`/api/v1/books/${book.id}`, book).then(response => {
+      this.setState({message: `Book with id ${book.id} was updated`});
+      // this.removeBook(bookId);
+      setTimeout(() => {
+        this.setState({message: ''})
+      }, 5000);
+    }).catch(error => {  
+      let response = error.response;
+      if (response.status === 422) {
+        this.setState({
+          errors: response.data,
+          message: ''
+        });
+      } else {
+        this.setState({
+          errors: ['Something went wrong... Books cannot be updated at this time.'],
+          message: ''
+        });
+      }   
+      
+    })
   }
 
   handleBookDelete(bookId) {
@@ -57,6 +85,13 @@ class RecommendedBookTable extends React.Component {
     });
   }
 
+  updateBook(bookId, fieldsToUpdate) {
+    let updatedBooks = this.state.books.map((book) =>
+      (book.id === bookId) ? Object.assign({}, book, fieldsToUpdate) : book
+    );
+    this.setState({books: updatedBooks});
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -77,7 +112,10 @@ class RecommendedBookTable extends React.Component {
           <tbody>
             {
               this.state.books.map((book) =>
-               <RecommendedBookTableRow key={book.id} book={book} onBookDelete={this.handleBookDelete} />
+               <RecommendedBookTableRow key={book.id} book={book} 
+               onBookDelete={this.handleBookDelete}  onBookUpdate={this.handleBookUpdate}
+               onFieldChange={this.updateBook}
+                />
               )
             }
           </tbody>
