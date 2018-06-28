@@ -77,11 +77,5 @@ describe('<RecommendedBookTableRow />', () => {
     it('renders a save button', () => {
       expect(wrapper.find('.save-book')).toHaveHTML('<button class="btn btn-success save-book">Save</button>')
     });
-
-    it('switches to an viewable state when save is clicked', () => {
-      wrapper.find('.save-book').first().simulate('click');
-
-      expect(wrapper.state('editMode')).toEqual(false);
-    });
   })
 });
