@@ -9,11 +9,19 @@ class RecommendedBookTable extends React.Component {
     this.state = {
       books: []
     }
+
+    this.handleNewBookAdd = this.handleNewBookAdd.bind(this); 
   }
 
   componentDidMount() {
     axios.get('/api/v1/books').then(response => {
       this.setState({books: response.data})
+    });
+  }
+
+  handleNewBookAdd(book) {
+    this.setState({
+      books: this.state.books.concat([book])
     });
   }
 
@@ -37,7 +45,7 @@ class RecommendedBookTable extends React.Component {
             {recommendedBooks}
           </tbody>
         </table>
-        <NewBookForm />
+        <NewBookForm onNewBookAdd={this.handleNewBookAdd}/>
       </React.Fragment>
     )
   }

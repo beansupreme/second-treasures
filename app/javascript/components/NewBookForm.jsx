@@ -20,20 +20,26 @@ class NewBookForm extends React.Component {
   }
 
   handleSubmit(event) {
+    let onNewBookAdd = this.props.onNewBookAdd;
     event.preventDefault();
     axios.post(
       '/api/v1/books',
       {
-        book: {
-          title: this.state.title,
-          author: this.state.author,
-          price: this.state.price,
-          isbn: this.state.isbn
-        }        
+        book: this.buildBook()        
       }
     ).then(response => {
+      onNewBookAdd(response.data)
       this.setState(defaultState)
     })
+  }
+
+  buildBook() {
+    return {
+      title: this.state.title,
+      author: this.state.author,
+      price: this.state.price,
+      isbn: this.state.isbn
+    }
   }
 
 
@@ -70,6 +76,10 @@ class NewBookForm extends React.Component {
       </React.Fragment>
     )
   }
+}
+
+NewBookForm.defaultProps = {
+  onNewBookAdd: () => {}
 }
 
 export default NewBookForm;

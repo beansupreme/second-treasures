@@ -101,7 +101,29 @@ describe('<NewBookForm />', () => {
         errors: []
       });
       done()
+    }, 0);
+  });
+
+  xit('calls the onNewBookAdd callback when a new book is submitted', (done) => {
+    let handleNewBookAdd = sinon.spy();
+
+    const wrapper = mount(<NewBookForm onNewBookAdd={handleNewBookAdd}/>);
+
+    wrapper.setState({
+      title: 'By Gaslight',
+      author: 'Steven Price',
+      price: 12.32,
+      isbn: '978-0060850666'
     });
+
+    wrapper.find('#new-book-form').first().simulate('submit');
+
+    setTimeout(() => {
+      expect(handleNewBookAdd.called).toEqual(true)
+
+      expect(handleNewBookAdd.calledWith({title: 'By Gaslight'})).toEqual(true)
+      done();
+    }, 0);
   });
 
 });

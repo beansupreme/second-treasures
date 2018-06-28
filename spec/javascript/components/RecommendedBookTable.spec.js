@@ -93,4 +93,5 @@ describe('<RecommendedBookTable />', () => {
 
     expect(wrapper.find(NewBookForm)).toHaveLength(1)
   });
+
 });
