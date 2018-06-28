@@ -43,8 +43,7 @@ describe('<GuestBookList />', () => {
     mock.onGet('/api/v1/books').reply(200, 
       booksResponse
     );
-  })
-
+  });
 
   it('renders as expected', () => {
     const tree = renderer.create(<GuestBookList />).toJSON();

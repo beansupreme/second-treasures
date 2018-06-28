@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<NewBookForm /> renders as expected 1`] = `
+Array [
+  <h5
+    className="text-center"
+  >
+    Add a new Book recommendation:
+  </h5>,
+  <div />,
+  <div>
+    
+  </div>,
+  <form
+    className="form-inline"
+    id="new-book-form"
+    onSubmit={[Function]}
+  >
+    <div
+      className="form-group"
+    >
+      <input
+        className="form-control"
+        id="book_title_field"
+        name="title"
+        onChange={[Function]}
+        placeholder="Title"
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      className="form-group"
+    >
+      <input
+        className="form-control"
+        id="book_author_field"
+        name="author"
+        onChange={[Function]}
+        placeholder="Author"
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      className="form-group"
+    >
+      <input
+        className="form-control"
+        id="book_price_field"
+        max="10000"
+        min="0"
+        name="price"
+        onChange={[Function]}
+        placeholder="Price"
+        step="0.01"
+        type="number"
+        value={0}
+      />
+    </div>
+    <div
+      className="form-group"
+    >
+      <input
+        className="form-control"
+        id="book_isbn_field"
+        name="ISBN"
+        onChange={[Function]}
+        placeholder="ISBN"
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      className="form-group"
+    >
+      <input
+        className="form-control"
+        id="book_genre_field"
+        name="Genre"
+        onChange={[Function]}
+        placeholder="Genre"
+        type="text"
+        value=""
+      />
+    </div>
+    <button
+      className="btn btn-success"
+      type="submit"
+    >
+      Save
+    </button>
+  </form>,
+]
+`;
