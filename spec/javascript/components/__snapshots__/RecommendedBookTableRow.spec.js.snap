@@ -11,8 +11,10 @@ exports[`<RecommendedBookTableRow /> renders as expected 1`] = `
     Alexander McKee
   </td>
   <td>
-    $
-    1.50
+    <span>
+      $
+      1.50
+    </span>
   </td>
   <td>
     978-330020242

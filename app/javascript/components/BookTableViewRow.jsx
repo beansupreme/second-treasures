@@ -1,4 +1,5 @@
 import React from "react"
+import CurrencySpan from "./CurrencySpan"
 
 function BookTableViewRow(props) {
   const book = props.book;
@@ -6,7 +7,7 @@ function BookTableViewRow(props) {
     <tr className="recommended-book-row">
       <td>{book.title}</td>
       <td>{book.author}</td>
-      <td>${book.price}</td>
+      <td><CurrencySpan number={book.price} /></td>
       <td>{book.isbn}</td>
       <td>{book.genre}</td>
       <td>

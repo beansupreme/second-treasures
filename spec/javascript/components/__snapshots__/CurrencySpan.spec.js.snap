@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CurrencySpan /> renders a number as expected 1`] = `
+<span>
+  $
+  10.00
+</span>
+`;
+
+exports[`<CurrencySpan /> renders a string as expected 1`] = `
+<span>
+  $
+  10.00
+</span>
+`;

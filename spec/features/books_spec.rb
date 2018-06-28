@@ -15,7 +15,7 @@ describe 'managing books', js: true do
       isbn: '9781473616349', 
       title: 'A Man Called Ove',
       author: 'Fredrik Backman',
-      price: 13.51,
+      price: 13.50,
       genre: 'Fiction'
     )
   end
@@ -60,7 +60,7 @@ describe 'managing books', js: true do
 
     expect(contacts_table).to have_table_row(
       'Title' => 'A Man Called Ove','Author' => 'Fredrik Backman',
-      'Price' => '$13.51',  'ISBN' => '9781473616349', 'Genre' => 'Fiction'
+      'Price' => '$13.50',  'ISBN' => '9781473616349', 'Genre' => 'Fiction'
     )
 
     expect(contacts_table).to have_table_row(
@@ -119,10 +119,8 @@ describe 'managing books', js: true do
 
     
     within('.recommended-book-edit-row') do
-      title = find('.edit-title')
-      title.set('')
       # title.send_keys[:control, "a"]
-      # fill_in name: 'edit-title', with: ''
+      fill_in name: 'edit-title', with: ''
       fill_in name: 'edit-price', with: 12.11
       # native.send_keys :backspace
       # execute_script "#{title}.dispatchEvent(new Event('change'))"

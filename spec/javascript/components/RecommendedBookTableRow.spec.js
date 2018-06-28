@@ -42,7 +42,7 @@ describe('<RecommendedBookTableRow />', () => {
 
       expect(tableData.at(0)).toHaveHTML('<td>Vimy Ridge</td>')
       expect(tableData.at(1)).toHaveHTML('<td>Alexander McKee</td>')
-      expect(tableData.at(2)).toHaveHTML('<td>$1.50</td>')
+      expect(tableData.at(2)).toHaveHTML('<td><span>$1.50</span></td>')
       expect(tableData.at(3)).toHaveHTML('<td>978-330020242</td>')
       expect(tableData.at(4)).toHaveHTML('<td>War novel</td>')
     });
