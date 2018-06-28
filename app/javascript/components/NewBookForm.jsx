@@ -46,6 +46,11 @@ class NewBookForm extends React.Component {
           errors: response.data,
           message: ''
         });
+      } else {
+        this.setState({
+          errors: ['Something went wrong... Books cannot be created at this time.'],
+          message: ''
+        });
       }
     })
   }
@@ -85,7 +90,7 @@ class NewBookForm extends React.Component {
           </div>
           <div className="form-group">
             <input id="book_price_field" name="price" type="number" placeholder="Price" className="form-control" 
-             min="0" max="10000" step="1" onChange={this.updateField} value={this.state.price}/>
+             min="0" max="10000" step="0.01" onChange={this.updateField} value={this.state.price}/>
           </div>
           <div className="form-group">
             <input id="book_isbn_field" name="ISBN" type="text" placeholder="ISBN" className="form-control" 

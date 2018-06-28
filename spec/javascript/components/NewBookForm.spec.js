@@ -17,11 +17,11 @@ describe('<NewBookForm />', () => {
     genre: 'Fiction'
   }
   beforeEach(() =>{
-
     mock.onPost('/api/v1/books').reply(200, 
       newBookResponse
     );
   });
+
 
   it('renders as expected', () => {
     const tree = renderer.create(<NewBookForm />).toJSON();
@@ -149,8 +149,22 @@ describe('<NewBookForm />', () => {
       expect(wrapper.find('#new-book-form-errors').first()).toIncludeText("Title can't be blank");
       done();
     }, 0);
+  });
 
-    mock.restore();
+  it('renders errors on the page if the server is down', (done) => {
+    const wrapper = mount(<NewBookForm />);
+
+    mock.onPost('/api/v1/books').reply(500, 
+      "Beep bop server error. I'm a robot. "
+    );
+
+    wrapper.find('#new-book-form').first().simulate('submit');
+
+    setTimeout(() => {
+      expect(wrapper.find('#new-book-form-message').first()).toHaveHTML('<div></div>');
+      expect(wrapper.find('#new-book-form-errors').first()).toIncludeText("Something went wrong... Books cannot be created at this time.");
+      done();
+    }, 0);
   });
 
   xit('calls the onNewBookAdd callback when a new book is submitted', (done) => {
