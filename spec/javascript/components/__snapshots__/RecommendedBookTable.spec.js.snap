@@ -28,6 +28,9 @@ Array [
           ISBN
         </th>
         <th>
+          Genre
+        </th>
+        <th>
           Actions
         </th>
       </tr>
@@ -96,6 +99,19 @@ Array [
         name="ISBN"
         onChange={[Function]}
         placeholder="ISBN"
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      className="form-group"
+    >
+      <input
+        className="form-control"
+        id="book_genre_field"
+        name="Genre"
+        onChange={[Function]}
+        placeholder="Genre"
         type="text"
         value=""
       />

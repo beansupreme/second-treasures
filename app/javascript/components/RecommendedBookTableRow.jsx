@@ -17,6 +17,7 @@ class RecommendedBookTableRow extends React.Component {
         <td>{book.author}</td>
         <td>${book.price}</td>
         <td>{book.isbn}</td>
+        <td>{book.genre}</td>
         <td>
           <button className="btn btn-danger delete-book" onClick={this.handleDeleteClick}>Delete</button>
         </td>

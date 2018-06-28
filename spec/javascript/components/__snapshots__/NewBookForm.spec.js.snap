@@ -68,6 +68,19 @@ Array [
         value=""
       />
     </div>
+    <div
+      className="form-group"
+    >
+      <input
+        className="form-control"
+        id="book_genre_field"
+        name="Genre"
+        onChange={[Function]}
+        placeholder="Genre"
+        type="text"
+        value=""
+      />
+    </div>
     <button
       className="btn btn-success"
       type="submit"

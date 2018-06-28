@@ -16,6 +16,7 @@ describe('<RecommendedBookTable />', () => {
       isbn: '978-1552453056',
       title: 'Fifteen Dogs',
       author: 'Andre Alexis',
+      genre: 'Fiction',
       price: '17.95',
       createdAt: "2018-06-25T14:44:31.990Z",
       updatedAt: "2018-06-25T14:44:31.990Z"
@@ -25,6 +26,7 @@ describe('<RecommendedBookTable />', () => {
       isbn: '978-330020242',
       title: 'Vimy Ridge',
       author: 'Alexander McKee',
+      genre: 'War novel',
       price: '1.50',
       createdAt: "2018-06-25T14:44:31.990Z",
       updatedAt: "2018-06-25T14:44:31.990Z"
@@ -34,6 +36,7 @@ describe('<RecommendedBookTable />', () => {
       isbn: '978-0060850524',
       title: 'Brave New World',
       author: 'Aldous Huxley',
+      genre: 'Dystopian Fiction',
       price: '16.31',
       createdAt: "2018-06-25T14:44:31.990Z",
       updatedAt: "2018-06-25T14:44:31.990Z"
@@ -104,6 +107,7 @@ describe('<RecommendedBookTable />', () => {
       expect(list).toIncludeText('Alexander McKee');
       expect(list).toIncludeText('$17.95');
       expect(list).toIncludeText('978-1552453056');
+      expect(list).toIncludeText('War novel');
 
 
       expect(list).toIncludeText('Fifteen Dogs');

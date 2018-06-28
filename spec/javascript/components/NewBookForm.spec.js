@@ -13,7 +13,8 @@ describe('<NewBookForm />', () => {
     title: 'By Gaslight',
     author: 'Steven Price',
     price: 12.32,
-    isbn: '978-0060850666'
+    isbn: '978-0060850666',
+    genre: 'Fiction'
   }
   beforeEach(() =>{
 
@@ -37,7 +38,8 @@ describe('<NewBookForm />', () => {
       title: 'By Gaslight',
       author: 'Steven Price',
       price: 12.32,
-      isbn: '978-0060850666'
+      isbn: '978-0060850666',
+      genre: 'Fiction'
     });
 
     wrapper.find('#new-book-form').first().simulate('submit');
@@ -49,7 +51,8 @@ describe('<NewBookForm />', () => {
         title: 'By Gaslight',
         author: 'Steven Price',
         price: 12.32,
-        isbn: '978-0060850666'
+        isbn: '978-0060850666',
+        genre: 'Fiction'
       } 
     };
 
@@ -73,6 +76,7 @@ describe('<NewBookForm />', () => {
     updateInput(wrapper, 'book_author_field', 'Ken Dryden');
     updateInput(wrapper, 'book_price_field', '22.78');
     updateInput(wrapper, 'book_isbn_field', '978-29292929');
+    updateInput(wrapper, 'book_genre_field', 'Non Fiction');
 
 
     let state = wrapper.state();
@@ -81,6 +85,7 @@ describe('<NewBookForm />', () => {
       author: 'Ken Dryden',
       price: '22.78',
       isbn: '978-29292929',
+      genre: 'Non Fiction',
       errors: [],
       message: ''
     }
@@ -94,7 +99,8 @@ describe('<NewBookForm />', () => {
       title: 'By Gaslight',
       author: 'Steven Price',
       price: 12.32,
-      isbn: '978-0060850666'
+      isbn: '978-0060850666',
+      genre: 'Fiction',
     });
 
     wrapper.find('#new-book-form').first().simulate('submit');
@@ -106,6 +112,7 @@ describe('<NewBookForm />', () => {
         author: '',
         price: 0,
         isbn: '',
+        genre: '',
         errors: [],
         message: "'By Gaslight' successfully added"
       });

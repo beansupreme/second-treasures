@@ -8,6 +8,7 @@ const defaultState = {
   author: '',
   price: 0.00,
   isbn: '',
+  genre: '',
   errors: [],
   message: ''
 }
@@ -54,7 +55,8 @@ class NewBookForm extends React.Component {
       title: this.state.title,
       author: this.state.author,
       price: this.state.price,
-      isbn: this.state.isbn
+      isbn: this.state.isbn,
+      genre: this.state.genre
     }
   }
 
@@ -88,6 +90,10 @@ class NewBookForm extends React.Component {
           <div className="form-group">
             <input id="book_isbn_field" name="ISBN" type="text" placeholder="ISBN" className="form-control" 
             onChange={this.updateField} value={this.state.isbn}/>
+          </div>
+          <div className="form-group">
+            <input id="book_genre_field" name="Genre" type="text" placeholder="Genre" className="form-control" 
+            onChange={this.updateField} value={this.state.genre}/>
           </div>
           <button type="submit" className="btn btn-success">Save</button>
         </form>  

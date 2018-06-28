@@ -8,6 +8,7 @@ describe 'Book Management' do
         isbn: '978-0060850524', 
         title: 'Brave New World',
         author: 'Aldous Huxley',
+        genre: 'Dystopian fiction',
         price: 16.31
       )
     end
@@ -16,6 +17,7 @@ describe 'Book Management' do
         isbn: '978-0440238133', 
         title: 'The Golden Compass',
         author: 'Philip Pullman',
+        genre: 'Fiction',
         price: 14.96
       )
     end
@@ -41,6 +43,7 @@ describe 'Book Management' do
           'isbn' => '978-0060850524', 
           'title' => 'Brave New World',
           'author' => 'Aldous Huxley',
+          'genre' => 'Dystopian fiction',
           'price' => '16.31'
         },
         {
@@ -48,6 +51,7 @@ describe 'Book Management' do
           'isbn' => '978-0440238133', 
           'title' => 'The Golden Compass',
           'author' => 'Philip Pullman',
+          'genre' => 'Fiction',
           'price' => '14.96'
         }
       ])
@@ -60,6 +64,7 @@ describe 'Book Management' do
         isbn: '978-0440238244', 
         title: 'The Subtle Knife',
         author: 'Philip Pullman',
+        genre: 'Fiction',
         price: 16.03
       }
     end
@@ -72,7 +77,9 @@ describe 'Book Management' do
     it 'creates a new book' do
       post '/api/v1/books', params: { book: book_data}
 
-      expect(Book.find_by_isbn('978-0440238244')).to be_present
+      new_book = Book.find_by_isbn('978-0440238244')
+      expect(new_book).to be_present
+      expect(new_book.genre).to eq('Fiction')
     end
 
     it 'returns an error with incomplete data' do
@@ -95,6 +102,7 @@ describe 'Book Management' do
         isbn: '978-0060850524', 
         title: 'Brave New World',
         author: 'Aldous Huxley',
+        genre: 'Fiction',
         price: 16.31
       )
     end

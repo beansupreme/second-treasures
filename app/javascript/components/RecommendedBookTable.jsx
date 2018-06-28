@@ -70,6 +70,7 @@ class RecommendedBookTable extends React.Component {
               <th>Author</th>
               <th>Price</th>
               <th>ISBN</th>
+              <th>Genre</th>
               <th>Actions</th>
             </tr>
           </thead>

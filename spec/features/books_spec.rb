@@ -15,7 +15,8 @@ describe 'managing books', js: true do
       isbn: '9781473616349', 
       title: 'A Man Called Ove',
       author: 'Fredrik Backman',
-      price: 13.51
+      price: 13.51,
+      genre: 'Fiction'
     )
   end
   let!(:all_quiet_on_the_western_front) do
@@ -23,7 +24,8 @@ describe 'managing books', js: true do
       isbn: '978-0449213940', 
       title: 'All Quiet on the Western Front',
       author: 'Erich Maria Remarque',
-      price: 8.99
+      price: 8.99,
+      genre: 'War novel'
     )
   end
 
@@ -58,12 +60,12 @@ describe 'managing books', js: true do
 
     expect(contacts_table).to have_table_row(
       'Title' => 'A Man Called Ove','Author' => 'Fredrik Backman',
-      'Price' => '$13.51',  'ISBN' => '9781473616349'
+      'Price' => '$13.51',  'ISBN' => '9781473616349', 'Genre' => 'Fiction'
     )
 
     expect(contacts_table).to have_table_row(
       'Title' => 'All Quiet on the Western Front', 'Author' => 'Erich Maria Remarque',
-      'Price' => '$8.99', 'ISBN' => '978-0449213940'
+      'Price' => '$8.99', 'ISBN' => '978-0449213940', 'Genre' => 'War novel'
     )
 
     # Adding a new book
@@ -72,6 +74,7 @@ describe 'managing books', js: true do
       fill_in 'Author', with: 'George Orwell'
       fill_in 'Price', with: '13.99'
       fill_in 'ISBN', with: '978-0449213888'
+      fill_in 'Genre', with: 'Dystopian Fiction'
       click_on 'Save'
     end
 
@@ -85,7 +88,8 @@ describe 'managing books', js: true do
     
     expect(contacts_table).to have_table_row(
       'Title' => '1984', 'Author' => 'George Orwell',
-      'Price' => '13.99', 'ISBN' => '978-0449213888'
+      'Price' => '13.99', 'ISBN' => '978-0449213888',
+      'Genre' => 'Dystopian Fiction'
     )
 
     new_book = Book.find_by_title('1984')
