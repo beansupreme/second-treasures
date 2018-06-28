@@ -1,10 +1,11 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { mount } from 'enzyme';
+import { mount, shallow} from 'enzyme';
 import sinon from 'sinon';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import RecommendedBookTable from 'components/RecommendedBookTable';
+import NewBookForm from 'components/NewBookForm';
 
 describe('<RecommendedBookTable />', () => {
   let mock = new MockAdapter(axios);
@@ -67,7 +68,7 @@ describe('<RecommendedBookTable />', () => {
 
   });
 
-   it('renders the books from the get books endpoint on the page', (done) => {
+  it('renders the books from the get books endpoint on the page', (done) => {
     const wrapper = mount(<RecommendedBookTable />);
 
     setTimeout(() => {
@@ -85,5 +86,11 @@ describe('<RecommendedBookTable />', () => {
       
       done()
     }, 0);
+  });
+
+  it('renders a NewBookForm', () => {
+    const wrapper = shallow(<RecommendedBookTable />);
+
+    expect(wrapper.find(NewBookForm)).toHaveLength(1)
   });
 });

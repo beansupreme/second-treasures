@@ -58,5 +58,24 @@ describe 'managing books', js: true do
       'Title' => 'All Quiet on the Western Front', 'Author' => 'Erich Maria Remarque',
       'Price' => '$8.99', 'ISBN' => '978-0449213940'
     )
+
+    # Adding a new book
+    within('#new-book-form') do
+      fill_in 'Title', with: '1984'
+      fill_in 'Author', with: 'George Orwell'
+      fill_in 'Price', with: '13.99'
+      fill_in 'ISBN', with: '978-0449213888'
+      click_on 'Save'
+    end
+
+    
+    expect(contacts_table).to have_table_row(
+      'Title' => '1984', 'Author' => 'George Orwell',
+      'Price' => '13.99', 'ISBN' => '978-0449213888'
+    )
+
+    new_book = Book.find_by_title('1984')
+    expect(new_book).to be_present
+
   end
 end

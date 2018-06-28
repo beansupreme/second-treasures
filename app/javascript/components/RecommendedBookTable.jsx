@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import RecommendedBookTableRow from './RecommendedBookTableRow'
+import NewBookForm from './NewBookForm'
 
 class RecommendedBookTable extends React.Component {
   constructor(props) {
@@ -21,20 +22,23 @@ class RecommendedBookTable extends React.Component {
      <RecommendedBookTableRow key={book.id} book={book} />
     )
     return (
-      <table id="recommended-book-table" className="table">
-        <caption>Recommended Books</caption>
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Price</th>
-            <th>ISBN</th>
-          </tr>
-        </thead>
-        <tbody>
-          {recommendedBooks}
-        </tbody>
-      </table>
+      <React.Fragment>
+        <table id="recommended-book-table" className="table table-bordered">
+          <caption>Recommended Books</caption>
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Author</th>
+              <th>Price</th>
+              <th>ISBN</th>
+            </tr>
+          </thead>
+          <tbody>
+            {recommendedBooks}
+          </tbody>
+        </table>
+        <NewBookForm />
+      </React.Fragment>
     )
   }
 }
