@@ -11,6 +11,7 @@ class RecommendedBookTableRow extends React.Component {
     this.handleDeleteClick = this.handleDeleteClick.bind(this); 
     this.handleEditClick = this.handleEditClick.bind(this); 
     this.handleUpdate = this.handleUpdate.bind(this); 
+    this.afterUpdate = this.afterUpdate.bind(this); 
   }
 
   handleDeleteClick() {
@@ -21,11 +22,15 @@ class RecommendedBookTableRow extends React.Component {
     this.setState({editMode: true})
   }
 
-  handleUpdate(book) {
-    this.setState({editMode: false}) 
-    this.props.onBookUpdate(book)
+  handleUpdate(book) {    
+    this.props.onBookUpdate(book, this.afterUpdate);
   }
 
+  afterUpdate(success) {
+    if (success) {
+      this.setState({editMode: false}) 
+    }
+  }
   
   render() {
     return (

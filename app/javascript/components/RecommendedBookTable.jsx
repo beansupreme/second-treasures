@@ -37,12 +37,13 @@ class RecommendedBookTable extends React.Component {
     });
   }
 
-  handleBookUpdate(book) {
-    console.log('book update!')
-    console.log(book)
+  handleBookUpdate(book, afterUpdateCallback) {
     axios.put(`/api/v1/books/${book.id}`, book).then(response => {
-      this.setState({message: `Book with id ${book.id} was updated`});
-      // this.removeBook(bookId);
+      this.setState({
+        message: `Book with id ${book.id} was updated`,
+        errors: []
+      });
+      afterUpdateCallback(true);
       setTimeout(() => {
         this.setState({message: ''})
       }, 5000);
@@ -58,8 +59,8 @@ class RecommendedBookTable extends React.Component {
           errors: ['Something went wrong... Books cannot be updated at this time.'],
           message: ''
         });
-      }   
-      
+      }
+      afterUpdateCallback(false);         
     })
   }
 
