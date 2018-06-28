@@ -74,5 +74,18 @@ describe 'Book Management' do
 
       expect(Book.find_by_isbn('978-0440238244')).to be_present
     end
+
+    it 'returns an error with incomplete data' do
+      incomplete_data = {
+        isbn: '978-0440238244', 
+        title: '',
+        author: 'Philip Pullman',
+        price: 16.03
+      }
+      post '/api/v1/books', params: { book: incomplete_data}
+
+      expect(response).to have_http_status(422)
+      expect(JSON.parse(response.body)).to eq(["Title can't be blank"])
+    end
   end
 end

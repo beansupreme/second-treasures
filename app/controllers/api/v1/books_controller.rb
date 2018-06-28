@@ -11,15 +11,15 @@ module Api
         if @book.save
           render status: :created, json: @book
         else
-          render json: @contact.errors.full_messages, status: :unprocessable_entity 
+          render json: @book.errors.full_messages, status: :unprocessable_entity 
         end
       end
 
-      private
+    private
       
-        def book_params
-          params.require(:book).permit(:title, :author, :price, :isbn)
-        end
+      def book_params
+        params.require(:book).permit(:title, :author, :price, :isbn)
+      end
     end
   end
 end

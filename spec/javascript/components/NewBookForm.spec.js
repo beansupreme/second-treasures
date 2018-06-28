@@ -7,7 +7,7 @@ import MockAdapter from 'axios-mock-adapter';
 import NewBookForm from 'components/NewBookForm';
 
 describe('<NewBookForm />', () => { 
-  let mock = new MockAdapter(axios);
+  var mock = new MockAdapter(axios);
   const newBookResponse = {
     id: 14,
     title: 'By Gaslight',
@@ -20,7 +20,14 @@ describe('<NewBookForm />', () => {
     mock.onPost('/api/v1/books').reply(200, 
       newBookResponse
     );
-  })
+  });
+
+  it('renders as expected', () => {
+    const tree = renderer.create(<NewBookForm />).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+
   it('calls to the books create endpoint with the current state', () => {
     sinon.spy(axios, 'post');
 
@@ -74,7 +81,8 @@ describe('<NewBookForm />', () => {
       author: 'Ken Dryden',
       price: '22.78',
       isbn: '978-29292929',
-      errors: []
+      errors: [],
+      message: ''
     }
     expect(state).toEqual(expectedState)
   });
@@ -98,10 +106,44 @@ describe('<NewBookForm />', () => {
         author: '',
         price: 0,
         isbn: '',
-        errors: []
+        errors: [],
+        message: "'By Gaslight' successfully added"
       });
       done()
     }, 0);
+  });
+
+  it('displays a success message if create book succeeds', (done) => {
+    const wrapper = mount(<NewBookForm />);
+
+    wrapper.find('#new-book-form').first().simulate('submit');
+
+
+    setTimeout(() => {
+      expect(wrapper.find('#new-book-form-message').first()).toIncludeText("'By Gaslight' successfully added");
+      expect(wrapper.find('#new-book-form-errors')).toHaveHTML('<div></div>');
+      done()
+    }, 0);
+
+    
+  });
+
+  it('renders errors on the page if the create contact call fails', (done) => {
+    const wrapper = mount(<NewBookForm />);
+
+    mock.onPost('/api/v1/books').reply(422, 
+      ["Title can't be blank"]
+    );
+
+    wrapper.find('#new-book-form').first().simulate('submit');
+
+    setTimeout(() => {
+      expect(wrapper.find('#new-book-form-message').first()).toHaveHTML('<div></div>');
+      expect(wrapper.find('#new-book-form-errors').first()).toIncludeText("Title can't be blank");
+      done();
+    }, 0);
+
+    mock.restore();
   });
 
   xit('calls the onNewBookAdd callback when a new book is submitted', (done) => {

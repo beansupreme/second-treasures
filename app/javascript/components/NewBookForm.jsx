@@ -1,12 +1,15 @@
 import React from "react";
 import axios from "axios";
+import ErrorList from "./ErrorList"
+import MessageBox from "./MessageBox"
 
 const defaultState = {
   title: '',
   author: '',
   price: 0.00,
   isbn: '',
-  errors: []
+  errors: [],
+  message: ''
 }
 
 class NewBookForm extends React.Component {
@@ -20,7 +23,6 @@ class NewBookForm extends React.Component {
   }
 
   handleSubmit(event) {
-    let onNewBookAdd = this.props.onNewBookAdd;
     event.preventDefault();
     axios.post(
       '/api/v1/books',
@@ -28,8 +30,22 @@ class NewBookForm extends React.Component {
         book: this.buildBook()        
       }
     ).then(response => {
-      onNewBookAdd(response.data)
-      this.setState(defaultState)
+      this.props.onNewBookAdd(response.data);
+      
+      this.setState(defaultState);
+      this.setState({message: `'${response.data.title}' successfully added`});
+      setTimeout(() => {
+        this.setState({message: ''})
+      }, 5000);
+
+    }).catch(error => {
+      let response = error.response;
+      if (response.status === 422) {
+        this.setState({
+          errors: response.data,
+          message: ''
+        });
+      }
     })
   }
 
@@ -54,6 +70,8 @@ class NewBookForm extends React.Component {
     return (
       <React.Fragment>
         <h5 className="text-center">Add a new Book recommendation:</h5>
+        <ErrorList id="new-book-form-errors" errors={this.state.errors} />
+        <MessageBox id="new-book-form-message" message={this.state.message} />
         <form className="form-inline" id="new-book-form" onSubmit={this.handleSubmit}>
           <div className="form-group">
             <input id="book_title_field" name="title" type="text" placeholder="Title" className="form-control" 

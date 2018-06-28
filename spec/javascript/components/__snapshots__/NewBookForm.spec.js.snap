@@ -1,32 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<RecommendedBookTable /> renders as expected 1`] = `
+exports[`<NewBookForm /> renders as expected 1`] = `
 Array [
-  <table
-    className="table table-bordered"
-    id="recommended-book-table"
-  >
-    <caption>
-      Recommended Books
-    </caption>
-    <thead>
-      <tr>
-        <th>
-          Title
-        </th>
-        <th>
-          Author
-        </th>
-        <th>
-          Price
-        </th>
-        <th>
-          ISBN
-        </th>
-      </tr>
-    </thead>
-    <tbody />
-  </table>,
   <h5
     className="text-center"
   >

@@ -61,10 +61,17 @@ describe 'managing books', js: true do
 
     # Adding a new book
     within('#new-book-form') do
-      fill_in 'Title', with: '1984'
+      fill_in 'Title', with: ''
       fill_in 'Author', with: 'George Orwell'
       fill_in 'Price', with: '13.99'
       fill_in 'ISBN', with: '978-0449213888'
+      click_on 'Save'
+    end
+
+    expect(page).to have_content 'Title can\'t be blank'
+
+    within('#new-book-form') do
+      fill_in 'Title', with: '1984'
       click_on 'Save'
     end
 
