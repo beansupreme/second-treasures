@@ -3,6 +3,11 @@ import axios from "axios";
 import ErrorList from "./ErrorList"
 import MessageBox from "./MessageBox"
 
+/* 
+  NewBookForm is resonsible for creating new books. It manages the 
+  state for a single new book model. 
+*/
+
 const defaultState = {
   title: '',
   author: '',
@@ -34,25 +39,32 @@ class NewBookForm extends React.Component {
       this.props.onNewBookAdd(response.data);
       
       this.setState(defaultState);
-      this.setState({message: `'${response.data.title}' successfully added`});
-      setTimeout(() => {
-        this.setState({message: ''})
-      }, 5000);
+      this.setTemporaryMessage(`'${response.data.title}' successfully added`)
 
     }).catch(error => {
       let response = error.response;
-      if (response.status === 422) {
-        this.setState({
-          errors: response.data,
-          message: ''
-        });
-      } else {
-        this.setState({
-          errors: ['Something went wrong... Books cannot be created at this time.'],
-          message: ''
-        });
-      }
+      let genericError = 'Something went wrong... Books cannot be created at this time.'
+      // Display dynamic error messages from server if 422, otherwise a static message. 
+      let errorMessage = response.status === 422 ? response.data : genericError;
+
+      this.setState({
+        errors: [errorMessage],
+        message: ''
+      });
     })
+  }
+
+  // setTemporaryMessage and clearMessagesAfterTimeout are candidates
+  // to be pulled out into a separate shared file. 
+  setTemporaryMessage(message) {
+    this.setState({message: message, errors: []});
+    this.clearMessagesAfterTimeout();
+  }
+
+  clearMessagesAfterTimeout() {
+    setTimeout(() => {
+      this.setState({message: ''})
+    }, 5000);
   }
 
   buildBook() {

@@ -74,6 +74,7 @@ describe('<GuestBookList />', () => {
       expect(wrapper.state('books')).toEqual(booksResponse);
 
       let list = wrapper.find('#recommended-book-list');
+      
       expect(list).toIncludeText('Vimy Ridge');
       expect(list).toIncludeText('Alexander McKee');
       expect(list).toIncludeText('Fifteen Dogs');
