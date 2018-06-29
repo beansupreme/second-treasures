@@ -8,7 +8,7 @@ function GuestBookListItem(props) {
       <div className="card-body">
         <h4 className="card-title">{book.title}</h4>
         <div>
-          <span>Author:</span> 
+          <span>Author: </span> 
           <span className="font-italic">{book.author}</span>
         </div>
         <span>ISBN: {book.isbn}</span>
