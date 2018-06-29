@@ -21,11 +21,14 @@ describe 'visiting the home page', js: true do
     visit '/'
 
     expect(page).to have_content('Second Treasures Bookstore')
-    expect(page).to have_content('Our recommended books:')
+    expect(page).to have_content('Our Favorite Books:')
 
     within '#recommended-book-list' do
       expect(page).to have_content('A Man Called Ove')
       expect(page).to have_content('Fredrik Backman')
+      expect(page).to have_content('$13.50')
+      expect(page).to have_content('9781473616349')
+
       expect(page).to have_content('All Quiet on the Western Front')
       expect(page).to have_content('Erich Maria Remarque')
     end

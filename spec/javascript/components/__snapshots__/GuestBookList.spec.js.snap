@@ -1,12 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<GuestBookList /> renders as expected 1`] = `
-<div>
-  <h3>
-    Our recommended books:
-  </h3>
-  <ul
-    id="recommended-book-list"
-  />
-</div>
+<div
+  id="recommended-book-list"
+/>
 `;

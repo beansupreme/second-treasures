@@ -21,12 +21,8 @@ class GuestBookList extends React.Component {
       <GuestBookListItem key={book.id} book={book}/>
     );
     return (
-      <div>
-        <h3>Our recommended books:</h3>
-        
-        <ul id="recommended-book-list">
-          {bookItems}
-        </ul>
+      <div id="recommended-book-list">
+        {bookItems}
       </div>
     );
   }
