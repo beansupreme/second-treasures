@@ -96,32 +96,40 @@ class RecommendedBookTable extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <ErrorList id="recommended-book-table-errors" errors={this.state.errors} />
-        <MessageBox id="recommended-book-table-message" message={this.state.message} />
-        <table id="recommended-book-table" className="table table-bordered">
-          <caption>Recommended Books</caption>
-          <thead>
-            <tr>
-              <th scope="col">Title</th>
-              <th scope="col">Author</th>
-              <th scope="col">Price</th>
-              <th scope="col">ISBN</th>
-              <th scope="col">Genre</th>
-              <th scope="col">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              this.state.books.map((book) =>
-               <RecommendedBookTableRow key={book.id} book={book} 
-               onBookDelete={this.handleBookDelete}  onBookUpdate={this.handleBookUpdate}
-               onFieldChange={this.updateBook}
-                />
-              )
-            }
-          </tbody>
-        </table>
-        <NewBookForm onNewBookAdd={this.handleNewBookAdd}/>
+        <div className="row">
+          <div className="col">
+          <ErrorList id="recommended-book-table-errors" errors={this.state.errors} />
+          <MessageBox id="recommended-book-table-message" message={this.state.message} />
+          <table id="recommended-book-table" className="table table-bordered">
+            <caption>Recommended Books</caption>
+            <thead>
+              <tr>
+                <th scope="col" className="w-40">Title</th>
+                <th scope="col" className="w-20">Author</th>
+                <th scope="col" className="w-5">Price</th>
+                <th scope="col" className="w-15">ISBN</th>
+                <th scope="col" className="w-10">Genre</th>
+                <th scope="col" className="w-10">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                this.state.books.map((book) =>
+                 <RecommendedBookTableRow key={book.id} book={book} 
+                 onBookDelete={this.handleBookDelete}  onBookUpdate={this.handleBookUpdate}
+                 onFieldChange={this.updateBook}
+                  />
+                )
+              }
+            </tbody>
+          </table>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col">
+            <NewBookForm onNewBookAdd={this.handleNewBookAdd}/>
+          </div>
+        </div>                
       </React.Fragment>
     )
   }

@@ -35,11 +35,11 @@ describe 'managing books', js: true do
     visit '/books' 
 
     expect(page).to have_content 'Log in'
-    expect(page).not_to have_content 'Listing Books'
+    expect(page).not_to have_content 'Manage Books'
 
     login_user(jill)
 
-    expect(page).to have_content 'Listing Books'
+    expect(page).to have_content 'Manage Books'
 
     expect(page).to have_content('Signed in as jill@second-treasures.com')
 
