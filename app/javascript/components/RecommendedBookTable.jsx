@@ -102,12 +102,12 @@ class RecommendedBookTable extends React.Component {
           <caption>Recommended Books</caption>
           <thead>
             <tr>
-              <th>Title</th>
-              <th>Author</th>
-              <th>Price</th>
-              <th>ISBN</th>
-              <th>Genre</th>
-              <th>Actions</th>
+              <th scope="col">Title</th>
+              <th scope="col">Author</th>
+              <th scope="col">Price</th>
+              <th scope="col">ISBN</th>
+              <th scope="col">Genre</th>
+              <th scope="col">Actions</th>
             </tr>
           </thead>
           <tbody>
