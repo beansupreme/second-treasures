@@ -79,6 +79,11 @@ jobs: # a collection of steps
       # Save test results for timing analysis
       - store_test_results:
           path: test_results
+
+
+      - run:
+          name: Run Jest Tests
+          command: yarn test
       # See https://circleci.com/docs/2.0/deployment-integrations/ for example deploy configs    
 
   deploy:
