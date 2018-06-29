@@ -1,6 +1,11 @@
 import React from "react";
 import axios from "axios";
 import GuestBookListItem from './GuestBookListItem'
+
+/* 
+  GuestBookList displays all books for the public facing home page.
+*/
+
 class GuestBookList extends React.Component {
   constructor(props) {
     super(props);

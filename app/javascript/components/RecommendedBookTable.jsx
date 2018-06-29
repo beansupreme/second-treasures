@@ -5,6 +5,10 @@ import NewBookForm from './NewBookForm'
 import ErrorList from './ErrorList'
 import MessageBox from './MessageBox'
 
+/* 
+  RecommendedBookTable is resonsible for rendering the entire GUI
+  for the manage books page. It manages the books collection in it's state. 
+*/
 class RecommendedBookTable extends React.Component {
   constructor(props) {
     super(props);
@@ -19,15 +23,12 @@ class RecommendedBookTable extends React.Component {
     this.handleBookUpdate = this.handleBookUpdate.bind(this); 
     this.updateBook = this.updateBook.bind(this); 
   }
-
+  // Pull down all books in beginning of lifecycle
   componentDidMount() {
     axios.get('/api/v1/books').then(response => {
       this.setState({books: response.data})
-    }).catch(error => {      
-      this.setState({
-        errors: ['Something went wrong... Books are not available at this time.'],
-        message: ''
-      });
+    }).catch(error => {     
+      this.setErrorMessage('Something went wrong... Books are not available at this time.');
     });
   }
 
@@ -37,46 +38,50 @@ class RecommendedBookTable extends React.Component {
     });
   }
 
+  // The afterUpdateCallback is a function intended to be called when the
+  // this component is PUTing to the server. If there are errors, it will
+  // tell the child so the RecommendedBookTableRow will remain in the correct state (editMode)
   handleBookUpdate(book, afterUpdateCallback) {
     axios.put(`/api/v1/books/${book.id}`, book).then(response => {
-      this.setState({
-        message: `Book with id ${book.id} was updated`,
-        errors: []
-      });
+      this.setTemporaryMessage(`Book with id ${book.id} was updated`);
       afterUpdateCallback(true);
-      setTimeout(() => {
-        this.setState({message: ''})
-      }, 5000);
     }).catch(error => {  
       let response = error.response;
-      if (response.status === 422) {
-        this.setState({
-          errors: response.data,
-          message: ''
-        });
-      } else {
-        this.setState({
-          errors: ['Something went wrong... Books cannot be updated at this time.'],
-          message: ''
-        });
-      }
+      let genericError = 'Something went wrong... Books cannot be updated at this time.'
+      // Display dynamic error messages from server if 422, otherwise a static message. 
+      let errorMessage = response.status === 422 ? response.data : genericError;
+      this.setErrorMessage(errorMessage)
       afterUpdateCallback(false);         
     })
   }
 
   handleBookDelete(bookId) {
     axios.delete(`/api/v1/books/${bookId}`).then(response => {
-      this.setState({message: `Book with id ${bookId} was deleted`});
+      this.setTemporaryMessage(`Book with id ${bookId} was deleted`)
+      
       this.removeBook(bookId);
-      setTimeout(() => {
-        this.setState({message: ''})
-      }, 5000);
     }).catch(error => {      
-      this.setState({
-        errors: ['Something went wrong... Books cannot be deleted at this time.'],
-        message: ''
-      });
+      this.setErrorMessage('Something went wrong... Books cannot be deleted at this time.')      
     })
+  }
+  
+  // TODO: pull this function out to be shared across components
+  setTemporaryMessage(message) {
+    this.setState({message: message, errors: []});
+    this.clearMessagesAfterTimeout();
+  }
+
+  clearMessagesAfterTimeout() {
+    setTimeout(() => {
+      this.setState({message: ''})
+    }, 5000);
+  }
+
+  setErrorMessage(errorMessage) {
+    this.setState({
+      errors: [errorMessage],
+      message: ''
+    });
   }
 
   removeBook(bookId) {
@@ -86,6 +91,8 @@ class RecommendedBookTable extends React.Component {
     });
   }
 
+  // State should be immutable - so here we create a carbon copy of 
+  // the book to be updated rather than changing it directly
   updateBook(bookId, fieldsToUpdate) {
     let updatedBooks = this.state.books.map((book) =>
       (book.id === bookId) ? Object.assign({}, book, fieldsToUpdate) : book
@@ -93,6 +100,9 @@ class RecommendedBookTable extends React.Component {
     this.setState({books: updatedBooks});
   }
 
+  // This component is quite large, and could be broken up with some thoughtful refactoring
+  // Loops through every book in the current state and builds a table row for it,
+  // as well as a NewBookForm in a separate row to add books. 
   render() {
     return (
       <React.Fragment>

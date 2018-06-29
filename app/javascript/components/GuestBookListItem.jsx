@@ -1,5 +1,6 @@
 import React from "react";
 import CurrencySpan from "./CurrencySpan";
+
 function GuestBookListItem(props) {
   let book = props.book;
   return (

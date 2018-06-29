@@ -1,5 +1,10 @@
 import React from "react"
 
+/* 
+  BookTableEditRow is rendered when 'edit' is clicked, it passes
+  changes up to it's parent
+*/
+
 class BookTableEditRow extends React.Component {
   constructor(props) {
     super(props);
