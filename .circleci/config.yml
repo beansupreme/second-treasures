@@ -1,10 +1,5 @@
 version: 2 # use CircleCI 2.0
 jobs: # a collection of steps
-  deployment:
-    dev:
-      branch: develop
-      heroku:
-        appname: second-treasures-dev
   build: # runs not using Workflows must have a `build` job as entry point
     parallelism: 3 # run three instances of this job in parallel
     working_directory: ~/circleci-demo-ruby-rails # directory where steps will run
@@ -85,3 +80,9 @@ jobs: # a collection of steps
       - store_test_results:
           path: test_results
       # See https://circleci.com/docs/2.0/deployment-integrations/ for example deploy configs    
+
+  deployment:
+    dev:
+      branch: develop
+      heroku:
+        appname: second-treasures-dev
